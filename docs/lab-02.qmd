@@ -1,0 +1,32 @@
+---
+title: ESS330 Lab 3
+author: 
+  - Name: Alex Smilor
+    Email: alexws23@colostate.edu
+subtitle: Covid Wrangling
+format: html
+---
+
+```{r}
+library(tidyverse)
+install.packages("flextable")
+library(flextable)
+install.packages("zoo")
+library(zoo)
+```
+```{r}
+url = "https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"
+covid <- read.csv(url)
+```
+
+## Question 2: Daily Summary
+```{r}
+my.date <- as_date("2022-01-01")
+my.state <- "Colorado"
+
+covid %>% 
+  filter(state == my.state) %>% 
+  group_by(county) %>% 
+  mutate()
+```
+
