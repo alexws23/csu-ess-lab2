@@ -229,7 +229,6 @@ covidStatePop %>%
        y = "7-Day Mean of Daily Cases per Capita",
        subtitle = 'Data Source: NY Times, US Census',
        color = "") +
-  facet_wrap(~state)+
   scale_x_date(breaks = "4 months", date_labels = "%b %Y") +
   theme_minimal() +
   theme(
