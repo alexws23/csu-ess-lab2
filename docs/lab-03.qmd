@@ -9,7 +9,9 @@ format:
     self-contained: true
 execute:
   echo: true
-output-dir: docs
+project:
+  type: website
+  output-dir: docs
 ---
 
 ```{r}
@@ -48,7 +50,7 @@ coviddailynew %>%
   flextable() %>% 
   set_header_labels(date = "Date", county = "County",cases="Cases") %>% 
   theme_vanilla() %>% 
-  set_caption(caption = "Colorado Counties with the Most Cumulative Covid Cases as of 02/01/2022")
+  add_header_lines("Colorado Counties with the Most Cumulative Covid Cases as of 02/01/2022")
 
 #Max New Cases
 coviddailynew %>% 
@@ -59,7 +61,7 @@ coviddailynew %>%
   flextable() %>% 
   set_header_labels(date = "Date", county = "County",NewDailyCases="New Cases") %>% 
   theme_vanilla() %>% 
-  set_caption(caption = "Colorado Counties with the Most New Covid Cases on 02/01/2021")
+  add_header_lines("Colorado Counties with the Most New Covid Cases on 02/01/2021")
 ```
 
 ## Question 3: Normalizing Data
@@ -105,7 +107,7 @@ covidpop %>%
   flextable() %>% 
   set_header_labels(date = "Date", county = "County",casespercap="Cases per Capita") %>% 
   theme_vanilla() %>% 
-  set_caption(caption = "Colorado Counties with the Most Cases per Capita on 02/01/2021")
+  add_header_lines("Colorado Counties with the Most Cases per Capita on 02/01/2021")
 
 covidpop %>%
   filter(date==(my.date)) %>% 
@@ -115,7 +117,7 @@ covidpop %>%
   flextable() %>% 
   set_header_labels(date = "Date", county = "County",newcasespercap="New Cases per Capita") %>% 
   theme_vanilla() %>% 
-  set_caption(caption = "Colorado Counties with the Most New Cases per Capita on 02/01/2021")
+  add_header_lines("Colorado Counties with the Most New Cases per Capita on 02/01/2021")
 
 
 ```
@@ -132,7 +134,7 @@ covidpop %>%
   flextable() %>% 
   set_header_labels(case = "Cases per 100000", county = "County") %>% 
   theme_vanilla() %>% 
-  set_caption(caption = "Five Colorado Counties with the Most New Cases per 100,000 People in the Past 14 days")
+  add_header_lines("Five Colorado Counties with the Most New Cases per 100,000 People in the Past 14 days")
 
 covidpop %>% 
   filter(date > my.date-14) %>% 
