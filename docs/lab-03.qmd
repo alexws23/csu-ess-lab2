@@ -257,7 +257,23 @@ weightedspace$date <- ymd(weightedspace$date)
 weightedspace$month <- format(weightedspace$date,"%Y-%m")
 
 weightedspace %>% 
-  ggplot(aes(x=LON,y=LAT,colour = month, size = cases))+
+  ggplot(aes(x=LON,y=LAT, size = cases))+
+  borders("state", colour = "black")+ 
+  geom_point(color = "red", alpha=.25)+
+  theme_minimal() +
+  theme(
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_blank(),
+    plot.background = element_rect(colour = "white"))+
+  labs(
+    x = "Latitude",
+    y = "Longitude",
+    colour = "Month",
+    size = "Cases"
+  )
+
+weightedspace %>% 
+  ggplot(aes(x=LON,y=LAT, color = month, size = cases))+
   borders("state", colour = "black")+ 
   geom_point()+
   theme_minimal() +
