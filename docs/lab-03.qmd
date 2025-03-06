@@ -175,12 +175,11 @@ deathprop2021 %>%
 ```{r}
 covidState <- covid %>% 
   filter(state %in% c("Colorado", "New York", "Alabama", "Ohio")) %>% 
-  filter(date < my.date) %>% 
-  group_by(state, date) %>% 
+  group_by(date, state) %>% 
   summarise(cases = sum(cases)) %>% 
-  mutate(NewDailyCases = (cases - lag(cases))) %>% 
   group_by(state) %>% 
-  transform(rollingMean = rollmean(NewDailyCases, k=7, fill = NA, align = "right")) %>% 
+  mutate(NewDailyCases = (cases - lag(cases)),
+           rollingMean = rollmean(NewDailyCases, k=7, fill = NA, align = "right")) %>% 
   ungroup()
 
 covidState$date <- ymd(covidState$date)
@@ -259,7 +258,6 @@ weightedspace$date <- ymd(weightedspace$date)
 weightedspace$month <- format(weightedspace$date,"%Y-%m")
 
 weightedspace %>% 
-  filter(date < my.date) %>% 
   ggplot(aes(x=LON,y=LAT,colour = month, size = cases))+
   borders("state", colour = "black")+ 
   geom_point()+
@@ -298,7 +296,6 @@ weighteddeath$date <- ymd(weighteddeath$date)
 weighteddeath$month <- format(weighteddeath$date,"%Y-%m")
 
 deathplot <- weighteddeath %>% 
-  filter(date < my.date) %>% 
   ggplot(aes(x=LON,y=LAT, size = deaths))+
   borders("state", colour = "black")+ 
   geom_point(colour = "navy")+
@@ -324,7 +321,6 @@ weighteddaily$date <- ymd(weighteddaily$date)
 weighteddaily$month <- format(weighteddaily$date,"%Y-%m")
 
 caseplot <- weightedspace %>% 
-  filter(date < my.date) %>% 
   ggplot(aes(x=LON,y=LAT, size = cases))+
   borders("state", colour = "black")+ 
   geom_point(color = "red")+
